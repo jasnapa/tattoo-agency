@@ -182,31 +182,31 @@ const Dashboard: React.FC = () => {
         {/* Filters */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Month</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2 text-center">Month</label>
             <select
               value={selectedMonth}
               onChange={(e) => setSelectedMonth(Number(e.target.value))}
-              className="w-full h-[42px] px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-sm w-full h-[42px] px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
             >
               {months.map((month, index) => (
-                <option key={index} value={index + 1}>{month}</option>
+                <option className="text-sm" key={index} value={index + 1}>{month}</option>
               ))}
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2 text-center">Year</label>
             <select
               value={selectedYear}
               onChange={(e) => setSelectedYear(Number(e.target.value))}
-              className="w-full h-[42px] px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="text-sm w-full h-[42px] px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-center"
             >
               {[2024, 2025, 2026].map((year) => (
-                <option key={year} value={year}>{year}</option>
+                <option className="text-sm" key={year} value={year}>{year}</option>
               ))}
             </select>
           </div>
           <div className="sm:col-span-2 lg:col-span-1">
-            <label className="block text-sm font-medium text-gray-700 mb-2">Week</label>
+            <label className="block text-sm font-medium text-gray-700 mb-2 text-center">Week</label>
             <div className="flex items-center gap-2">
               <button
                 onClick={handlePreviousWeek}
