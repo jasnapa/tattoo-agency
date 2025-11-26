@@ -221,7 +221,7 @@ const Dashboard: React.FC = () => {
                 <div className="flex-1 px-2 sm:px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-center text-sm min-w-0">
                   {currentWeek ? (
                     <div>
-                      <div className="font-medium">Week {currentWeek.week_number}</div>
+                      <div className="font-medium text-xs">Week {currentWeek.week_number}</div>
                       <div className="text-xs text-gray-600 truncate">
                         {new Date(currentWeek.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(currentWeek.end_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                       </div>
