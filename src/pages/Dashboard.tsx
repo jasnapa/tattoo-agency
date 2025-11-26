@@ -166,86 +166,86 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-full px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
-        {/* Header */}
-        <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-4 sm:mb-6">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
-            <h2 className="text-lg sm:text-xl font-bold text-gray-900">Artist Availability</h2>
-            <button
-              onClick={logout}
-              style={{ backgroundColor: '#edaa00' }}
-              className="w-full sm:w-auto px-6 py-3 text-white text-base rounded-lg hover:opacity-90 transition-opacity font-semibold"
-            >
-              Logout
-            </button>
-          </div>
+      {/* Header - Full Width */}
+      <div className="bg-white shadow p-6 sm:p-8 mb-2 sm:mb-4">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+          <h2 className="text-lg sm:text-xl font-bold text-gray-900">Artist Availability</h2>
+          <button
+            onClick={logout}
+            style={{ backgroundColor: '#edaa00' }}
+            className="sm:w-auto px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 transition-opacity font-semibold"
+          >
+            Logout
+          </button>
+        </div>
 
-          {/* Filters */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Month</label>
-              <select
-                value={selectedMonth}
-                onChange={(e) => setSelectedMonth(Number(e.target.value))}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        {/* Filters */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Month</label>
+            <select
+              value={selectedMonth}
+              onChange={(e) => setSelectedMonth(Number(e.target.value))}
+              className="w-full h-[42px] px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {months.map((month, index) => (
+                <option key={index} value={index + 1}>{month}</option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
+            <select
+              value={selectedYear}
+              onChange={(e) => setSelectedYear(Number(e.target.value))}
+              className="w-full h-[42px] px-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            >
+              {[2024, 2025, 2026].map((year) => (
+                <option key={year} value={year}>{year}</option>
+              ))}
+            </select>
+          </div>
+          <div className="sm:col-span-2 lg:col-span-1">
+            <label className="block text-sm font-medium text-gray-700 mb-2">Week</label>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePreviousWeek}
+                disabled={selectedWeekIndex === 0 || !currentWeek}
+                className="h-[42px] px-3 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
               >
-                {months.map((month, index) => (
-                  <option key={index} value={index + 1}>{month}</option>
-                ))}
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Year</label>
-              <select
-                value={selectedYear}
-                onChange={(e) => setSelectedYear(Number(e.target.value))}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                {[2024, 2025, 2026].map((year) => (
-                  <option key={year} value={year}>{year}</option>
-                ))}
-              </select>
-            </div>
-            <div className="sm:col-span-2 lg:col-span-1">
-              <label className="block text-sm font-medium text-gray-700 mb-2">Week</label>
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handlePreviousWeek}
-                  disabled={selectedWeekIndex === 0 || !currentWeek}
-                  className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                </button>
-                <div className="flex-1 px-2 sm:px-4 py-2 border border-gray-300 rounded-lg bg-gray-50 text-center text-sm min-w-0">
-                  {currentWeek ? (
-                    <div>
-                      <div className="font-medium text-xs">Week {currentWeek.week_number}</div>
-                      <div className="text-xs text-gray-600 truncate">
-                        {new Date(currentWeek.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(currentWeek.end_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
-                      </div>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <div className="flex-1 h-[42px] px-2 sm:px-4 border border-gray-300 rounded-lg bg-gray-50 text-center text-sm min-w-0 flex items-center justify-center">
+                {currentWeek ? (
+                  <div>
+                    <div className="font-medium text-xs leading-tight">Week {currentWeek.week_number}</div>
+                    <div className="text-xs text-gray-600 truncate leading-tight">
+                      {new Date(currentWeek.start_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })} - {new Date(currentWeek.end_date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
                     </div>
-                  ) : (
-                    <span className="text-gray-400">No weeks available</span>
-                  )}
-                </div>
-                <button
-                  onClick={handleNextWeek}
-                  disabled={selectedWeekIndex === availableWeeks.length - 1 || !currentWeek}
-                  className="px-3 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </button>
+                  </div>
+                ) : (
+                  <span className="text-gray-400">No weeks available</span>
+                )}
               </div>
+              <button
+                onClick={handleNextWeek}
+                disabled={selectedWeekIndex === availableWeeks.length - 1 || !currentWeek}
+                className="h-[42px] px-3 border border-gray-300 rounded-lg hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
+      <div className="max-w-full px-4 sm:px-6 lg:px-8 pb-4 sm:pb-6">
         {/* Search Bar */}
-        <div className="bg-white rounded-lg shadow p-4 sm:p-6 mb-4 sm:mb-6">
+        <div className="bg-white p-4 sm:p-6 mb-2 sm:mb-4">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
               <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -257,7 +257,7 @@ const Dashboard: React.FC = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by artist name..."
-              className="block w-full pl-10 pr-3 py-2 sm:py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
+              className="block w-full pl-10 pr-3 py-2 sm:py-3 shadow rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
             />
           </div>
         </div>
@@ -276,43 +276,43 @@ const Dashboard: React.FC = () => {
             </div>
           ) : (
             <>
-              {/* Desktop Table View */}
-              <div className="hidden md:block overflow-x-auto">
+              {/* Horizontally Scrollable Table */}
+              <div className="overflow-x-auto">
                 <table className="min-w-full divide-y divide-gray-200">
                   <thead className="bg-gray-50">
                     <tr>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tier</th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">🟢 Appointment Days</th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">🔵 Opening Days</th>
-                      <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">🔴 Off Days</th>
+                      <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Name</th>
+                      <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Location</th>
+                      <th className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Tier</th>
+                      <th className="px-4 sm:px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">🟢 Appointment Days</th>
+                      <th className="px-4 sm:px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">🔵 Opening Days</th>
+                      <th className="px-4 sm:px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">🔴 Off Days</th>
                     </tr>
                   </thead>
                   <tbody className="bg-white divide-y divide-gray-200">
                     {filteredArtists.length > 0 ? (
                       filteredArtists.map((artist) => (
                         <tr key={artist.calendar_id} className="hover:bg-gray-50">
-                          <td className="px-6 py-4 text-left">
+                          <td className="px-4 sm:px-6 py-4 text-left whitespace-nowrap">
                             <div className="text-sm font-medium text-gray-900">{artist.name}</div>
                           </td>
-                          <td className="px-6 py-4 text-left">
+                          <td className="px-4 sm:px-6 py-4 text-left whitespace-nowrap">
                             <div className="text-sm text-gray-600">{artist.location}</div>
                           </td>
-                          <td className="px-6 py-4 text-left">
+                          <td className="px-4 sm:px-6 py-4 text-left whitespace-nowrap">
                             <div className="text-sm text-gray-600">{artist.tier}</div>
                           </td>
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-4 sm:px-6 py-4 text-center whitespace-nowrap">
                             <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
                               {artist.appointmentDays}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-4 sm:px-6 py-4 text-center whitespace-nowrap">
                             <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
                               {artist.openingDays}
                             </span>
                           </td>
-                          <td className="px-6 py-4 text-center">
+                          <td className="px-4 sm:px-6 py-4 text-center whitespace-nowrap">
                             <span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
                               {artist.offDays}
                             </span>
@@ -328,43 +328,6 @@ const Dashboard: React.FC = () => {
                     )}
                   </tbody>
                 </table>
-              </div>
-
-              {/* Mobile Card View */}
-              <div className="md:hidden divide-y divide-gray-200">
-                {filteredArtists.length > 0 ? (
-                  filteredArtists.map((artist) => (
-                    <div key={artist.calendar_id} className="p-4 hover:bg-gray-50">
-                      <div className="font-medium text-gray-900">{artist.name}</div>
-                      <div className="text-xs text-gray-500">{artist.location}</div>
-                      <div className="text-xs text-gray-500 mb-3">{artist.tier}</div>
-                      <div className="grid grid-cols-3 gap-2">
-                        <div className="text-center">
-                          <div className="text-xs text-gray-500 mb-1">🟢 Appointments</div>
-                          <span className="inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            {artist.appointmentDays}
-                          </span>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-xs text-gray-500 mb-1">🔵 Opening</div>
-                          <span className="inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                            {artist.openingDays}
-                          </span>
-                        </div>
-                        <div className="text-center">
-                          <div className="text-xs text-gray-500 mb-1">🔴 Off</div>
-                          <span className="inline-flex items-center justify-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                            {artist.offDays}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <div className="px-4 py-12 text-center text-gray-500 text-sm">
-                    {searchQuery ? 'No artists found matching your search' : 'No availability data found'}
-                  </div>
-                )}
               </div>
 
               {/* Pagination */}
