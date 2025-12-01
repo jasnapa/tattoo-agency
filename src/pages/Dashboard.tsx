@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useAuth } from '../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../lib/axios';
 
 interface WeekData {
@@ -34,6 +35,7 @@ interface ArtistSummary {
 
 const Dashboard: React.FC = () => {
   const { logout } = useAuth();
+  const navigate = useNavigate();
   const [calendarData, setCalendarData] = useState<CalendarData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -170,13 +172,21 @@ const Dashboard: React.FC = () => {
       <div className="bg-white shadow p-6 sm:p-8 mb-2 sm:mb-4">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <h2 className="text-lg sm:text-xl font-bold text-gray-900">Artist Availability</h2>
-          <button
-            onClick={logout}
-            style={{ backgroundColor: '#edaa00' }}
-            className="sm:w-auto px-4 py-2 text-white text-sm rounded-lg hover:opacity-90 transition-opacity font-semibold"
-          >
-            Logout
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={() => navigate('/artist-form')}
+              className="px-4 py-2 bg-blue-600 text-white text-sm rounded-lg hover:bg-blue-700 transition-colors font-semibold"
+            >
+              + Add Artist
+            </button>
+            <button
+              onClick={logout}
+              style={{ backgroundColor: '#edaa00' }}
+              className="sm:w-auto px-4 py-2 text-black text-sm rounded-lg hover:opacity-90 transition-opacity font-semibold"
+            >
+              Logout
+            </button>
+          </div>
         </div>
 
         {/* Filters */}

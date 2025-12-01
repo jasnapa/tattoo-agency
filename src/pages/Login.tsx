@@ -18,7 +18,12 @@ const Login: React.FC = () => {
     onSubmit: async (values) => {
       setLoading(true);
       try {
+        console.log('Attempting login with:', { username: values.username });
+        console.log('API URL:', 'https://dashboard.cercus.app/login/');
+        
         const response = await axiosInstance.post('/login/', values);
+        console.log('Login response:', response);
+        
         const { access, refresh, user } = response.data;
         
         if (access && refresh) {
@@ -34,7 +39,24 @@ const Login: React.FC = () => {
           navigate('/dashboard');
         }
       } catch (err: any) {
-        const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';
+        console.error('Login error:', err);
+        console.error('Error response:', err.response);
+        console.error('Error message:', err.message);
+        
+        let errorMessage = 'Login failed. Please try again.';
+        
+        if (err.response?.data?.message) {
+          errorMessage = err.response.data.message;
+        } else if (err.response?.data?.detail) {
+          errorMessage = err.response.data.detail;
+        } else if (err.message === 'Network Error') {
+          errorMessage = 'Network error. Please check your internet connection or the API might be down.';
+        } else if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
+          errorMessage = 'Connection timeout. The API server is not responding. Please check if the server is running or try again later.';
+        } else if (err.message) {
+          errorMessage = `Error: ${err.message}`;
+        }
+        
         toast.error(errorMessage);
       } finally {
         setLoading(false);

@@ -43,6 +43,10 @@ const Register: React.FC = () => {
           navigate('/login');
         }
       } catch (err: any) {
+        console.error('Registration error:', err);
+        console.error('Error response:', err.response);
+        console.error('Error message:', err.message);
+        
         if (err.response?.data) {
           const errorData = err.response.data;
           
@@ -61,6 +65,12 @@ const Register: React.FC = () => {
           } else {
             toast.error(errorData.message || 'Registration failed. Please try again.');
           }
+        } else if (err.message === 'Network Error') {
+          toast.error('Network error. Please check your internet connection or the API might be down.');
+        } else if (err.code === 'ECONNABORTED' || err.message.includes('timeout')) {
+          toast.error('Connection timeout. The API server is not responding. Please check if the server is running or try again later.');
+        } else if (err.message) {
+          toast.error(`Error: ${err.message}`);
         } else {
           toast.error('Registration failed. Please try again.');
         }

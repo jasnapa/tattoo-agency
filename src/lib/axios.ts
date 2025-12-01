@@ -3,7 +3,7 @@ import { useAuthStore } from "../store/authStore";
 
 const axiosInstance = axios.create({
   baseURL: "https://dashboard.cercus.app",
-  timeout: 10000,
+  timeout: 30000, // Increased to 30 seconds
   headers: {
     "Content-Type": "application/json",
     // "Access-Control-Allow-Origin": "*",

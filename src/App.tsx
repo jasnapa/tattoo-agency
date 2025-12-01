@@ -4,6 +4,7 @@ import { Toaster } from 'react-hot-toast';
 import Login from './pages/Login'
 import Dashboard from './pages/Dashboard'
 import Register from './pages/Register'
+import ArtistForm from './pages/ArtistForm'
 import ProtectedRoute from './components/ProtectedRoute'
 
 
@@ -42,6 +43,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Dashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/artist-form" 
+          element={
+            <ProtectedRoute>
+              <ArtistForm />
             </ProtectedRoute>
           } 
         />
